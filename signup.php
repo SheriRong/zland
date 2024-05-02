@@ -51,23 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prepare and bind SQL statement
         $sql = "INSERT INTO P_User (Username, Password, Email, FirstName, LastName) VALUES ('$username', '$password', '$email', '$firstname', '$lastname')";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssss", $username, $password, $email, $firstname, $lastname);
 
-        // Execute the statement
-        if ($stmt->execute() === TRUE) {
-            echo "<script>alert('Registration completed successfully. Login to continue.');</script>";
+        if ($conn->query($sql) === TRUE) {
+            echo '<script>alert("Registration completed successfully. Login to continue.");window.location.href = "./index.html";</script>';
             exit;
         } else {
             echo "<script>alert('Oops! Something went wrong. Please try again later.');</script>";
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            
         }
 
-        // Close connection
-        $stmt->close();
-        $conn->close();
-    }
-}
+        
+}}
 ?>
 
 
